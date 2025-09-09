@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kenangan kita</title>
+    <!-- Tailwind CSS untuk styling yang cepat dan modern -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts untuk font yang estetik -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:ital,wght@0,400;1,400;1,700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Mengatur font kustom */
+        body {
+            font-family: 'Lora', serif;
+            background-color: #111827; /* Latar belakang gelap untuk konsistensi */
+        }
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Animasi untuk fade in dan fade out */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        .fade-in {
+            animation: fadeIn 1.5s ease-in-out forwards;
+        }
+        .fade-out {
+            animation: fadeOut 1.5s ease-in-out forwards;
+        }
+
+        /* Styling dasar untuk setiap "halaman" */
+        .page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 0.8s ease-in-out;
+        }
+        
+        .hidden {
+            display: none;
+        }
+
+        /* Scrollbar estetik (opsional) */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4b5563;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6b7280;
+        }
+    </style>
+</head>
+<body class="text-gray-200">
+
+    <!-- ====================================================== -->
+    <!-- BAGIAN 1: LAYAR ANIMASI PEMBUKA (SPLASH SCREEN)        -->
+    <!-- ====================================================== -->
+    <div id="splash-screen" class="fixed inset-0 bg-black z-50 flex items-center justify-center">
+        <div class="text-center text-white px-4">
+            <!-- Ganti kata-kata pembuka di sini -->
+            <h1 id="splash-text" class="font-display text-2xl md:text-4xl opacity-0">Untukmu Windi,sebuah persembahan terakhir.....</h1>
+        </div>
+    </div>
+
+    <!-- ====================================================== -->
+    <!-- BAGIAN 2: MUSIK UNTUK SETIAP HALAMAN                    -->
+    <!-- Letakkan file musik .mp3 Anda di folder yang sama dengan file HTML ini -->
+    <!-- ====================================================== -->
+    <!-- Ganti "musik-halaman-utama.mp3" dengan nama file musik Anda -->
+    <audio id="music-home" loop>
+        <source src="Daun_jatuh.mp3" type="audio/mpeg">
+    </audio>
+    <!-- Ganti "musik-halaman-1.mp3" dengan nama file musik Anda -->
+    <audio id="music-page1" loop>
+        <source src="About_You _The_1975.mp3" type="audio/mpeg">
+    </audio>
+    <!-- Ganti "musik-halaman-2.mp3" dengan nama file musik Anda -->
+    <audio id="music-page2" loop>
+        <source src="Amin_Paling_Serius.mp3" type="audio/mpeg">
+    </audio>
+    <!-- Ganti "musik-halaman-3.mp3" dengan nama file musik Anda -->
+    <audio id="music-page3" loop>
+        <source src="Nadhif_Basalamah.mp3" type="audio/mpeg">
+    </audio>
+
+
+    <!-- Kontainer utama untuk semua halaman -->
+    <main id="main-content" class="opacity-0 transition-opacity duration-1000">
+        
+        <!-- ====================================================== -->
+        <!-- BAGIAN 3: HALAMAN UTAMA (HOME)                         -->
+        <!-- ====================================================== -->
+        <div id="home" class="page">
+            <!-- GANTI FOTO LATAR BELAKANG HALAMAN UTAMA DI SINI -->
+            <div class="absolute inset-0 bg-black bg-cover bg-center" style="background-image: url('laman_utama.jpg');">
+                <div class="absolute inset-0 bg-black opacity-50"></div>
+            </div>
+
+            <div class="relative z-10 flex flex-col items-center justify-center h-full text-center p-4">
+                <h1 class="font-display text-4xl md:text-6xl mb-8 text-white shadow-lg">Ruang Konspirasi Alam Semesta</h1>
+                
+                <!-- Slider Foto -->
+                <div class="w-full max-w-xl md:max-w-4xl mx-auto overflow-hidden relative">
+                    <div id="slider-container" class="flex transition-transform duration-500 ease-in-out">
+                        
+                        <!-- GANTI FOTO SLIDE 1 & TARGET HALAMAN -->
+                        <div class="slide w-full flex-shrink-0 cursor-pointer" data-target="page1">
+                            <img src="slide_1.jpg" alt="Kenangan Pertama" class="w-full h-64 md:h-96 object-cover rounded-lg shadow-2xl">
+                        </div>
+                        
+                        <!-- GANTI FOTO SLIDE 2 & TARGET HALAMAN -->
+                        <div class="slide w-full flex-shrink-0 cursor-pointer" data-target="page2">
+                            <img src="slide_2.jpg" alt="Kenangan Kedua" class="w-full h-64 md:h-96 object-cover rounded-lg shadow-2xl">
+                        </div>
+
+                        <!-- GANTI FOTO SLIDE 3 & TARGET HALAMAN -->
+                        <div class="slide w-full flex-shrink-0 cursor-pointer" data-target="page3">
+                            <img src="slide_3.jpg" alt="Kenangan Ketiga" class="w-full h-64 md:h-96 object-cover rounded-lg shadow-2xl">
+                        </div>
+
+                    </div>
+                    
+                    <!-- Tombol Navigasi Slider -->
+                    <button id="prevBtn" class="absolute top-1/2 left-2 md:left-4 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 text-black p-2 rounded-full focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                    </button>
+                    <button id="nextBtn" class="absolute top-1/2 right-2 md:right-4 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 text-black p-2 rounded-full focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                    </button>
+                </div>
+
+                <!-- Running Text / Teks Berjalan -->
+                <div class="mt-8 text-white text-lg md:text-2xl font-display h-16 flex items-center justify-center">
+                    <span id="running-text" class="transition-opacity duration-1000 ease-in-out"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====================================================== -->
+        <!-- BAGIAN 4: HALAMAN CERITA 1                             -->
+        <!-- ====================================================== -->
+        <div id="page1" class="page hidden">
+            <!-- GANTI FOTO LATAR BELAKANG HALAMAN 1 DI SINI -->
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('background_1.jpg');">
+                <div class="absolute inset-0 bg-black opacity-60"></div>
+            </div>
+
+            <div class="relative z-10 flex flex-col items-center justify-center h-full p-6 md:p-12 overflow-y-auto">
+                <div class="max-w-3xl w-full bg-black/50 p-6 md:p-10 rounded-xl shadow-lg backdrop-blur-sm">
+                    <!-- GANTI JUDUL CERITA 1 DI SINI -->
+                    <h2 class="font-display text-3xl md:text-5xl text-center mb-6 text-white">Prolog</h2>
+                    <!-- GANTI ISI CERITA 1 DI SINI (Font akan otomatis miring/italic) -->
+                    <p class="text-base md:text-lg leading-relaxed italic">
+                       Semesta, konon, adalah sutradara terbaik. Ia punya miliaran cara untuk menulis sebuah pertemuan. Namun, untukku dan kau, semesta memilih skenario yang lebih sunyi, yang terbungkus dalam dinginnya teknologi. Pertemuan kita tidak beraroma hujan atau kopi, melainkan dalam dunia maya.Semuanya bermula dari sebuah ketidaksengajaan paling disengaja. Sebuah ketukan jari yang kukirim ke profilmu yang entah kenapa terasa familier. Aku tidak berharap banyak. Dunia maya adalah labirin raksasa. Tapi, balasan darimu datang secepat senja yang pamit di ufuk barat. Singkat, tapi cukup untuk membuka sebuah gerbang.Dari sana, obrolan kita mengalir seperti sungai di musi. Kita bertukar cerita tentang hal-hal remeh: lagu apa yang sedang kau dengar, keluh kesah tentang hari yang payah, hingga mimpi-mimpi paling liar yang kita simpan rapat-rapat di dasar hati. Setiap notifikasi darimu menjadi jeda yang paling kunanti di antara bisingnya duniaku. Layar ponsel yang semula dingin, kini menjadi jendela tempatku bisa melihat sepotong semesta milikmu yang menenangkan. Kau, dengan segala kesederhanaanmu, menjelma menjadi rumah bagi segala resahku.Aku tak pernah tahu kapan tepatnya garis batas pertemanan itu mulai memudar. Mungkin saat aku mulai tersenyum sendiri membaca ulang obrolan kita. Mungkin saat namamu menjadi hal pertama yang kucari saat membuka mata. Atau mungkin, saat aku sadar bahwa ketiadaanmu terasa lebih menyesakkan daripada secangkir kopi yang lupa diseduh di pagi hari.Perasaan ini tumbuh tanpa permisi, mekar diam-diam di ruang hampa antara kota kita yang terpisah jarak. Aku jatuh hati pada cara berpikirmu, pada tawamu yang hanya bisa kudengar lewat rekaman suara, pada sosokmu yang kutafsirkan dari kumpulan foto dan ribuan kata.Inilah awal perjalanan kita. Sebuah kisah yang mencoba merangkai debar di antara sinyal-sinyal internet. Dan aku berdiri di sini, di awal babak ini, dengan sebuah pertanyaan sederhana yang menggantung di langit-langit kamar: Bisakah sesuatu yang tumbuh di antara kau dan aku di dunia maya, berakar kuat di dunia nyata?
+
+
+                    </p>
+                </div>
+                <button class="back-button mt-8 bg-white/20 hover:bg-white/40 text-white font-bold py-2 px-6 rounded-lg transition-colors">Kembali</button>
+            </div>
+        </div>
+
+        <!-- ====================================================== -->
+        <!-- BAGIAN 5: HALAMAN CERITA 2                             -->
+        <!-- ====================================================== -->
+        <div id="page2" class="page hidden">
+            <!-- GANTI FOTO LATAR BELAKANG HALAMAN 2 DI SINI -->
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('background_2.jpg');">
+                <div class="absolute inset-0 bg-black opacity-60"></div>
+            </div>
+             <div class="relative z-10 flex flex-col items-center justify-center h-full p-6 md:p-12 overflow-y-auto">
+                <div class="max-w-3xl w-full bg-black/50 p-6 md:p-10 rounded-xl shadow-lg backdrop-blur-sm">
+                    <!-- GANTI JUDUL CERITA 2 DI SINI -->
+                    <h2 class="font-display text-3xl md:text-5xl text-center mb-6 text-white">Sebuah Temu</h2>
+                    <!-- GANTI ISI CERITA 2 DI SINI (Font akan otomatis miring/italic) -->
+                    <p class="text-base md:text-lg leading-relaxed italic">
+                        Kau ingat pertama kali kita berjumpa?.di sebuah kota kecil diatas berbukitan kita berdua berbagi sedikit cerita dan tawa.meskipun kita sedikit canggung hehehe.kau tahu yang paling ku ingat kala itu?.Yang paling kuingat adalah senyum manismu.Tatkala kau pandangkan senyummu itu padaku semesta seakan berhenti dihadapanku,kau mencuri isi hatiku hehehehehe.walaupun kau tak banyak berbicara kau mampu membuatku terdiam terpukau,sebab parasmu membuyarkan fokusku kali ini aku percaya bidadari bukan cerita dongeng belaka.Meskipun waktu itu aku lelah,namun hadirmu disisiku membunuh segala kekhawatiran dalam diriku.”bersamamu aku hidup”ujarku dalam hati..Kita sama-sama tahu hari itu adalah untuk pertama kali kita berjumpa dan sekaligus untuk yang terakhir kalinya.semogaa setiap detik dalam perjumpaan itu menjadi makna bukan luka.Rasanya waktu itu aku ingin mengatakan pada sang waktu agar berhenti sejenak,Namun sayangnya sang waktu tak mengizinkan.yah tidak masalah hehehehe.udin selalu terima apapun itu.izinkan aku untuk mengingat ini untuk selamanya hingga waktu membunuhku perlahan.
+                </div>
+                <button class="back-button mt-8 bg-white/20 hover:bg-white/40 text-white font-bold py-2 px-6 rounded-lg transition-colors">Kembali</button>
+            </div>
+        </div>
+
+        <!-- ====================================================== -->
+        <!-- BAGIAN 6: HALAMAN CERITA 3                             -->
+        <!-- ====================================================== -->
+        <div id="page3" class="page hidden">
+            <!-- GANTI FOTO LATAR BELAKANG HALAMAN 3 DI SINI -->
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('background_3.jpg');">
+                <div class="absolute inset-0 bg-black opacity-60"></div>
+            </div>
+             <div class="relative z-10 flex flex-col items-center justify-center h-full p-6 md:p-12 overflow-y-auto">
+                <div class="max-w-3xl w-full bg-black/50 p-6 md:p-10 rounded-xl shadow-lg backdrop-blur-sm">
+                    <!-- GANTI JUDUL CERITA 3 DI SINI -->
+                    <h2 class="font-display text-3xl md:text-5xl text-center mb-6 text-white">Epilog</h2>
+                    <!-- GANTI ISI CERITA 3 DI SINI (Font akan otomatis miring/italic) -->
+                    <p class="text-base md:text-lg leading-relaxed italic">
+                        Kita pernah merencanakan banyak hal menggebu-gebu seperti remaja baru mengenal rasa setiap hari ada saja yang diceritakan.Dari segudang impian hingga sebatas mengingatkan hingga tentang istirahat dan makan.kita menertawakan dunia seolah mereka semua serupa dan hanya kita yang berbeda.kemudian ketika malam tiba kita saling mendoakan supaya jalannya dimudahkan.jatuh cinta memang jenaka.Aku ingin jadi penulis yang mengisahkan cerita ini denganmu sebagai tokoh utamanya kau tahu yang paling kusuka adalah Bab dimana kau menjadikanku pemberani tak gentar meski harus menghadapi halang rintang keluh kesahku jadi milikmu kesedihanmu Jadi Milikku saling mengobati Lagi dan lagi sampai lupa bahwa terlalu banyak mengonsumsi obat juga bukan hal yang baik.diam-diam kita memendam rasa sakit menganga dan terus membesar yang menjadi landasan untuk bersama kini menjadi alasan untuk berpisah.ternyata cocok saja tidak cukup.jatuh cinta memang jenaka.kita sebetulnya tidak merencanakan banyak hal kita hanya sedang berandai-andai sampai lupa berpijak pada kenyataan.kenyataan yang kita tahu dari awal bahwa kau dan aku takkan berujung di rumah yang sama.kita memaksa berpelukan tanpa sadar bahwa kadang yang paling kita peluk adalah yang paling menyakiti Makin erat makin melukai.dilepas memang berat tapi mungkin itu yang terbaik aku kembali berdoa dan terus berdoa hingga kemudian hari aku mengerti Tuhan tidak mau kita hancur berantakan makanya dipisahkan di persimpangan jalan.doa tentang jalan yang dimudahkan berubah menjadi doa supaya hati dikuatkan karena kita berdua tahu jalannya sudah beruntung.Aku adalah penulis yang mengisahkan cerita ini dan kita sudah tiba pada bab terakhir bab ini berisi tentang belajar untuk tidak menyapa tentang belajar untuk berhenti menyayangi tentang belajar peduli tanpa perlu lagi diperlihatkan yang terutama tentang belajar melepaskan.karena seperti katamu dulu “melepaskan juga bagian dari perjuangan.”
+                </div>
+                <button class="back-button mt-8 bg-white/20 hover:bg-white/40 text-white font-bold py-2 px-6 rounded-lg transition-colors">Kembali</button>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // ======================================================
+            // PENGATURAN KONTEN YANG BISA DIUBAH
+            // ======================================================
+
+            // Durasi animasi pembuka (dalam milidetik). 4000 = 4 detik.
+            const splashDuration = 4000; 
+
+            // Kata-kata yang akan muncul bergantian di halaman utama.
+            // Anda bisa menambah atau mengubahnya.
+            const runningTextPhrases = [
+                "dari wahyu untukmuuu yang jauh disana",
+                "Kau,aku dan cerita yang pernah tumbuh",
+                "From strangers to friends.friends to lovers.And to strangers again",
+                "Semogaaa selalu berjumpa dengan bahagia windi cantikk ~by.udinn~"
+                
+            ];
+
+
+            // ======================================================
+            // KODE FUNGSIONALITAS WEBSITE (TIDAK PERLU DIUBAH)
+            // ======================================================
+
+            const splashScreen = document.getElementById('splash-screen');
+            const splashText = document.getElementById('splash-text');
+            const mainContent = document.getElementById('main-content');
+            
+            // Animasi Splash Screen
+            setTimeout(() => {
+                splashText.classList.add('fade-in');
+            }, 500);
+
+            setTimeout(() => {
+                splashScreen.classList.add('fade-out');
+                mainContent.style.opacity = '1';
+                playMusic('home'); // Mulai musik halaman utama setelah splash
+                startRunningText(); // Mulai running text
+                
+                splashScreen.addEventListener('animationend', () => {
+                    splashScreen.classList.add('hidden');
+                });
+
+            }, splashDuration);
+
+
+            // Logika Halaman dan Musik
+            const pages = document.querySelectorAll('.page');
+            const musicTracks = {
+                home: document.getElementById('music-home'),
+                page1: document.getElementById('music-page1'),
+                page2: document.getElementById('music-page2'),
+                page3: document.getElementById('music-page3'),
+            };
+
+            function stopAllMusic() {
+                for (const key in musicTracks) {
+                    if (musicTracks[key]) {
+                        musicTracks[key].pause();
+                        musicTracks[key].currentTime = 0;
+                    }
+                }
+            }
+            
+            function playMusic(pageId) {
+                stopAllMusic();
+                if (musicTracks[pageId]) {
+                    // Coba putar musik, butuh interaksi user pertama kali di beberapa browser
+                    musicTracks[pageId].play().catch(error => {
+                        console.log("Autoplay musik dicegah oleh browser. Interaksi user diperlukan.");
+                    });
+                }
+            }
+
+            function showPage(targetId) {
+                pages.forEach(page => {
+                    if (page.id === targetId) {
+                        page.classList.remove('hidden');
+                        page.style.opacity = '1';
+                    } else {
+                        page.style.opacity = '0';
+                        setTimeout(() => page.classList.add('hidden'), 800);
+                    }
+                });
+                playMusic(targetId);
+            }
+            
+            // Logika Slider
+            const sliderContainer = document.getElementById('slider-container');
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            let currentIndex = 0;
+
+            function updateSlider() {
+                sliderContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+            }
+
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex > 0) ? currentIndex - 1 : slides.length - 1;
+                updateSlider();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex < slides.length - 1) ? currentIndex + 1 : 0;
+                updateSlider();
+            });
+            
+            slides.forEach(slide => {
+                slide.addEventListener('click', () => {
+                    const targetId = slide.getAttribute('data-target');
+                    showPage(targetId);
+                });
+            });
+
+
+            // Logika Tombol Kembali
+            document.querySelectorAll('.back-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    showPage('home');
+                });
+            });
+
+            // Logika Running Text
+            const runningTextElement = document.getElementById('running-text');
+            let phraseIndex = 0;
+
+            function startRunningText() {
+                // Atur teks awal dan pastikan terlihat
+                runningTextElement.textContent = runningTextPhrases[phraseIndex];
+                runningTextElement.style.opacity = '1';
+
+                // Ganti teks setiap 5 detik (3 detik terlihat, 1 detik fade-out, 1 detik fade-in)
+                setInterval(changeRunningText, 5000); 
+            }
+
+            function changeRunningText() {
+                // Fade out the text
+                runningTextElement.style.opacity = '0';
+
+                // Setelah transisi fade-out selesai, ganti teks dan fade-in kembali
+                setTimeout(() => {
+                    phraseIndex = (phraseIndex + 1) % runningTextPhrases.length;
+                    runningTextElement.textContent = runningTextPhrases[phraseIndex];
+                    runningTextElement.style.opacity = '1';
+                }, 1000); // Durasi ini HARUS SAMA dengan durasi transisi di class (duration-1000)
+            }
+
+        });
+    </script>
+</body>
+</html>
+
